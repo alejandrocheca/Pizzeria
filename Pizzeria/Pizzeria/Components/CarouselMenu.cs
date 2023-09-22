@@ -19,7 +19,7 @@ namespace Pizzeria.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var pizzas = await _context.Pizzas.Where(x => x.IsPizzaOfTheWeek).ToListAsync();
+            var pizzas = await _context.Pizzas.Where(x => x.PizzaDeLaSemana).ToListAsync();
             return View(pizzas);
         }
     }
