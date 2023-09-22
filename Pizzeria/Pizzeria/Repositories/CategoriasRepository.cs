@@ -17,31 +17,31 @@ namespace Pizzeria.Repositories
             _context = context;
         }
 
-        public IEnumerable<Categories> Categories => _context.Categories.Include(x => x.Pizzas); //include here
+        public IEnumerable<Categorias> Categorias => _context.Categorias.Include(x => x.Pizzas); //include here
 
-        public void Add(Categories category)
+        public void Add(Categorias categoria)
         {
-            _context.Add(category);
+            _context.Add(categoria);
         }
 
-        public IEnumerable<Categories> GetAll()
+        public IEnumerable<Categorias> GetAll()
         {
-            return _context.Categories.ToList();
+            return _context.Categorias.ToList();
         }
 
-        public async Task<IEnumerable<Categories>> GetAllAsync()
+        public async Task<IEnumerable<Categorias>> GetAllAsync()
         {
-            return await _context.Categories.ToListAsync();
+            return await _context.Categorias.ToListAsync();
         }
 
-        public Categories GetById(int? id)
+        public Categorias GetById(int? id)
         {
-            return _context.Categories.FirstOrDefault(p => p.Id == id);
+            return _context.Categorias.FirstOrDefault(p => p.Id == id);
         }
 
-        public async Task<Categories> GetByIdAsync(int? id)
+        public async Task<Categorias> GetByIdAsync(int? id)
         {
-            return await _context.Categories.FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Categorias.FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public bool Exists(int id)
@@ -49,9 +49,9 @@ namespace Pizzeria.Repositories
             return _context.Pizzas.Any(p => p.Id == id);
         }
 
-        public void Remove(Categories category)
+        public void Remove(Categorias categoria)
         {
-            _context.Remove(category);
+            _context.Remove(categoria);
         }
 
         public void SaveChanges()
@@ -64,9 +64,9 @@ namespace Pizzeria.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public void Update(Categories category)
+        public void Update(Categorias categoria)
         {
-            _context.Update(category);
+            _context.Update(categoria);
         }
 
     }
