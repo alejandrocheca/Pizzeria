@@ -55,7 +55,7 @@ namespace Pizzeria.Controllers
 
             if (pizzaSeleccionada != null)
             {
-                await _carrito.RemoveFromCartAsync(pizzaSeleccionada);
+                await _carrito.RemoveDeCarrito(pizzaSeleccionada);
             }
             return RedirectToAction("Index");
         }
