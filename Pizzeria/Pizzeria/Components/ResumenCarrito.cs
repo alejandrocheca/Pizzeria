@@ -19,7 +19,7 @@ namespace Pizzeria.Components
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var items = await _carrito.GetShoppingCartItemsAsync();
-            _carrito.ShoppingCartItems = items;
+            _carrito.CarritoItems = items;
 
             var carritoCartViewModel = new CarritoViewModel
             {
