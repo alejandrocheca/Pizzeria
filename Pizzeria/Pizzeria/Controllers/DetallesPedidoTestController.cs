@@ -19,33 +19,33 @@ namespace Pizzeria.Controllers
         // GET: OrderDetailsTest
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.OrderDetails.Include(o => o.Order);
+            var appDbContext = _context.DetallesPedido.Include(o => o.Order);
             return View(await appDbContext.ToListAsync());
         }
 
-        // GET: OrderDetailsTest/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: OrderDetailsTest/Detalles/5
+        public async Task<IActionResult> Detalles(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var orderDetail = await _context.OrderDetails
+            var detallePedido = await _context.DetallesPedido
                 .Include(o => o.Order)
-                .SingleOrDefaultAsync(m => m.OrderDetailId == id);
-            if (orderDetail == null)
+                .SingleOrDefaultAsync(m => m.DetallePedidoId == id);
+            if (detallePedido == null)
             {
                 return NotFound();
             }
 
-            return View(orderDetail);
+            return View(detallePedido);
         }
 
         // GET: OrderDetailsTest/Create
         public IActionResult Create()
         {
-            ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "AddressLine1");
+            ViewData["PedidoId"] = new SelectList(_context.Orders, "PedidoId", "Direccion1");
             return View();
         }
 
@@ -54,16 +54,16 @@ namespace Pizzeria.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderDetailId,OrderId,PieId,Amount,Price")] OrderDetail orderDetail)
+        public async Task<IActionResult> Create([Bind("DetallePedidoId,PedidoId,TartaId,Cantidad,Precio")] DetallePedido detallePedido)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(orderDetail);
+                _context.Add(detallePedido);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "AddressLine1", orderDetail.OrderId);
-            return View(orderDetail);
+            ViewData["PedidoId"] = new SelectList(_context.Orders, "PedidoId", "Direccion1", detallePedido.PedidoId);
+            return View(detallePedido);
         }
 
         // GET: OrderDetailsTest/Edit/5
@@ -74,13 +74,13 @@ namespace Pizzeria.Controllers
                 return NotFound();
             }
 
-            var orderDetail = await _context.OrderDetails.SingleOrDefaultAsync(m => m.OrderDetailId == id);
-            if (orderDetail == null)
+            var detallePedido = await _context.DetallesPedido.SingleOrDefaultAsync(m => m.DetallePedidoId == id);
+            if (detallePedido == null)
             {
                 return NotFound();
             }
-            ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "AddressLine1", orderDetail.OrderId);
-            return View(orderDetail);
+            ViewData["PedidoId"] = new SelectList(_context.Orders, "PedidoId", "Direccion1", detallePedido.PedidoId);
+            return View(detallePedido);
         }
 
         // POST: OrderDetailsTest/Edit/5
@@ -88,9 +88,9 @@ namespace Pizzeria.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderDetailId,OrderId,PieId,Amount,Price")] OrderDetail orderDetail)
+        public async Task<IActionResult> Edit(int id, [Bind("DetallePedidoId,PedidoId,TartaId,Cantidad,Precio")] DetallePedido detallePedido)
         {
-            if (id != orderDetail.OrderDetailId)
+            if (id != detallePedido.DetallePedidoId)
             {
                 return NotFound();
             }
@@ -99,12 +99,12 @@ namespace Pizzeria.Controllers
             {
                 try
                 {
-                    _context.Update(orderDetail);
+                    _context.Update(detallePedido);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OrderDetailExists(orderDetail.OrderDetailId))
+                    if (!OrderDetailExists(detallePedido.DetallePedidoId))
                     {
                         return NotFound();
                     }
@@ -115,8 +115,8 @@ namespace Pizzeria.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "AddressLine1", orderDetail.OrderId);
-            return View(orderDetail);
+            ViewData["PedidoId"] = new SelectList(_context.Orders, "PedidoId", "Direccion1", detallePedido.PedidoId);
+            return View(detallePedido);
         }
 
         // GET: OrderDetailsTest/Delete/5
@@ -127,15 +127,15 @@ namespace Pizzeria.Controllers
                 return NotFound();
             }
 
-            var orderDetail = await _context.OrderDetails
+            var detallePedido = await _context.DetallesPedido
                 .Include(o => o.Order)
-                .SingleOrDefaultAsync(m => m.OrderDetailId == id);
-            if (orderDetail == null)
+                .SingleOrDefaultAsync(m => m.DetallePedidoId == id);
+            if (detallePedido == null)
             {
                 return NotFound();
             }
 
-            return View(orderDetail);
+            return View(detallePedido);
         }
 
         // POST: OrderDetailsTest/Delete/5
@@ -143,15 +143,15 @@ namespace Pizzeria.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var orderDetail = await _context.OrderDetails.SingleOrDefaultAsync(m => m.OrderDetailId == id);
-            _context.OrderDetails.Remove(orderDetail);
+            var detallePedido = await _context.DetallesPedido.SingleOrDefaultAsync(m => m.DetallePedidoId == id);
+            _context.DetallesPedido.Remove(detallePedido);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
         private bool OrderDetailExists(int id)
         {
-            return _context.OrderDetails.Any(e => e.OrderDetailId == id);
+            return _context.DetallesPedido.Any(e => e.DetallePedidoId == id);
         }
     }
 }
