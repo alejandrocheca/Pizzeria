@@ -14,7 +14,7 @@ namespace Pizzeria.Models
         public Pizzas()
         {
             PizzaIngredientes = new HashSet<PizzaIngredientes>();
-            Reviews = new HashSet<Reviews>();
+            Reseñas = new HashSet<Reseñas>();
         }
 
         public int Id { get; set; }
@@ -47,7 +47,7 @@ namespace Pizzeria.Models
         public virtual Categorias Categoria { get; set; }
 
         public virtual ICollection<PizzaIngredientes> PizzaIngredientes { get; set; }
-        public virtual ICollection<Reviews> Reviews { get; set; }
+        public virtual ICollection<Reseñas> Reseñas { get; set; }
 
     }
 }
