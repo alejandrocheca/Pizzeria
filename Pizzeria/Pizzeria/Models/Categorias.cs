@@ -143,7 +143,7 @@ namespace Pizzeria.Controllers
             bool anyPizzas = await _context.Pizzas.AnyAsync(x => x.Categoria == categoria);
             if (!anyPizzas)
             {
-                return NotFound($"No Pizzas were found in the categoria: {nombreCategoria}");
+                return NotFound($"No se han encontrado pizzas en la categoria: {nombreCategoria}");
             }
 
             var pizzas = _context.Pizzas.Where(x => x.Categoria == categoria)
