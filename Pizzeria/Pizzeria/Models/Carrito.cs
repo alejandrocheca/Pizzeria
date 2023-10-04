@@ -100,7 +100,7 @@ namespace Pizzeria.Models
         public async Task ClearCartAsync()
         {
             var cartaItem = _appDbContextCarritoItem
-                .
+                .CarritoItems
                 .Where(carta => carta.CarritoId == CarritoId);
 
             _appDbContext.CarritoItem.RemoveRange(cartaItem);
