@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pizzeria.ViewModels
 {
-    public class RegisterViewModel
+    public class RegistroViewModel
     {
         [Required]
         [DataType(DataType.EmailAddress)]
