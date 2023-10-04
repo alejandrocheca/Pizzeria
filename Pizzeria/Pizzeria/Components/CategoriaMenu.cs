@@ -38,7 +38,7 @@ namespace OnlinePizzaWebApplication.Controllers {
         {
             var model = new SearchPizzasViewModel()
             {
-                PizzaList = await _pizzaRepo.GetAllIncludedAsync(),
+                PizzaLista = await _pizzaRepo.GetAllIncludedAsync(),
                 SearchText = null
             };
 
@@ -69,9 +69,9 @@ namespace OnlinePizzaWebApplication.Controllers {
         [HttpGet]
         public async Task<IActionResult> AjaxSearchList(string searchString)
         {
-            var pizzaList = await GetPizzaSearchList(searchString);
+            var pizzaLista = await GetPizzaSearchList(searchString);
 
-            return PartialView(pizzaList);
+            return PartialView(pizzaLista);
         }
 
         [AllowAnonymous]
@@ -82,25 +82,25 @@ namespace OnlinePizzaWebApplication.Controllers {
             var pizzas = await _pizzaRepo.GetAllIncludedAsync();
             if (model.SearchText == null || model.SearchText == string.Empty)
             {
-                model.PizzaList = pizzas;
+                model.PizzaLista = pizzas;
                 return View(model);
             }
 
             var input = model.SearchText.Trim();
             if (input == string.Empty || input == null)
             {
-                model.PizzaList = pizzas;
+                model.PizzaLista = pizzas;
                 return View(model);
             }
             var searchString = input.ToLower();
 
             if (string.IsNullOrEmpty(searchString))
             {
-                model.PizzaList = pizzas;
+                model.PizzaLista = pizzas;
             }
             else
             {
-                var pizzaList = await _context.Pizzas.Include(x => x.Categoria).Include(x => x.Reviews).Include(x => x.PizzaIngredientes).OrderBy(x => x.Nombre)
+                var pizzaLista = await _context.Pizzas.Include(x => x.Categoria).Include(x => x.Reviews).Include(x => x.PizzaIngredientes).OrderBy(x => x.Nombre)
                      .Where(p =>
                      p.Nombre.ToLower().Contains(searchString)
                   || p.Precio.ToString("c").ToLower().Contains(searchString)
@@ -108,13 +108,13 @@ namespace OnlinePizzaWebApplication.Controllers {
                   || p.PizzaIngredientes.Select(x => x.Ingrediente.Nombre.ToLower()).Contains(searchString))
                     .ToListAsync();
 
-                if (pizzaList.Any())
+                if (pizzaLista.Any())
                 {
-                    model.PizzaList = pizzaList;
+                    model.PizzaLista = pizzaLista;
                 }
                 else
                 {
-                    model.PizzaList = new List<Pizzas>();
+                    model.PizzaLista = new List<Pizzas>();
                 }
 
             }
@@ -212,7 +212,7 @@ namespace OnlinePizzaWebApplication.Controllers {
         {
             var model = new SearchPizzasViewModel()
             {
-                PizzaList = await _pizzaRepo.GetAllIncludedAsync(),
+                PizzaLista = await _pizzaRepo.GetAllIncludedAsync(),
                 SearchText = null
             };
 
@@ -229,24 +229,24 @@ namespace OnlinePizzaWebApplication.Controllers {
 
             if (string.IsNullOrEmpty(search))
             {
-                model.PizzaList = pizzas;
+                model.PizzaLista = pizzas;
             }
             else
             {
-                var pizzaList = await _context.Pizzas.Include(x => x.Categoria).Include(x => x.Reviews).Include(x => x.PizzaIngredientes).OrderBy(x => x.Nombre)
+                var pizzaLista = await _context.Pizzas.Include(x => x.Categoria).Include(x => x.Reviews).Include(x => x.PizzaIngredientes).OrderBy(x => x.Nombre)
                     .Where(p =>
                      p.Nombre.ToLower().Contains(search)
                   || p.Precio.ToString("c").ToLower().Contains(search)
                   || p.Categoria.Nombre.ToLower().Contains(search)
                   || p.PizzaIngredientes.Select(x => x.Ingrediente.Nombre.ToLower()).Contains(search)).ToListAsync();
 
-                if (pizzaList.Any())
+                if (pizzaLista.Any())
                 {
-                    model.PizzaList = pizzaList;
+                    model.PizzaLista = pizzaLista;
                 }
                 else
                 {
-                    model.PizzaList = new List<Pizzas>();
+                    model.PizzaLista = new List<Pizzas>();
                 }
 
             }
