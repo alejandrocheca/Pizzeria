@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Pizzeria.Models
 {
-    public class ShoppingCart
+    public class CarritoCarta
     {
         private readonly AppDbContext _appDbContext;
 
-        private ShoppingCart(AppDbContext appDbContext)
+        private CarritoCarta(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
@@ -24,7 +24,7 @@ namespace Pizzeria.Models
         public List<CarritoItem> CarritoItem { get; set; }
 
 
-        public static ShoppingCart GetCart(IServiceProvider services)
+        public static CarritoCarta GetCart(IServiceProvider services)
         {
             ISession session = services.GetRequiredService<IHttpContextAccessor>()?
                 .HttpContext.Session;
@@ -34,7 +34,7 @@ namespace Pizzeria.Models
 
             session.SetString("CartaItem", cartaId);
 
-            return new ShoppingCart(context) { CarritoId = cartaId };
+            return new CarritoCarta(context) { CarritoId = cartaId };
         }
 
         public async Task AddToCartAsync(Pizzas pizza, int importe)
